@@ -75,7 +75,7 @@ function Map({ navigation, route }) {
             }}
           >
             <Image
-              source={require('/Users/eugenpuzynin/Downloads/Version-0.11-main/BeeApp/assets/apiary.png')}
+              source={require('../../../assets/apiary.png')}
               style={{ width: 30, height: 30, tintColor: 'black' }}
               resizeMode="contain"
             />

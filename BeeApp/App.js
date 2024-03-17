@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import JournalScreen from '/Users/eugenpuzynin/Downloads/Version-0.11-main/BeeApp/screens/JournalScreen.js';
+import JournalScreen from './screens/JournalScreen.js';
 
 import CategoriesScreen from './screens/CategoriesScreen';
 import WeatherScreen from './screens/WeatherScreen';
