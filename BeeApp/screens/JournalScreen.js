@@ -6,7 +6,6 @@ function JournalScreen({ navigation }) {
 
     const saveNote = () => {
         console.log(note);
-        // Your save logic here
     };
 
     return (
@@ -39,13 +38,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     saveButton: {
-        backgroundColor: '#EBBC4E', // Set the background color of the button
+        backgroundColor: '#EBBC4E',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
     },
     saveButtonText: {
-        color: 'white', // Here's your white text color
+        color: 'white',
         fontSize: 16,
     },
 });

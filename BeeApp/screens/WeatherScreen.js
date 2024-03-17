@@ -56,27 +56,14 @@ function WeatherScreen({route, navigation}) {
           navigation.navigate('Journal');
       }, []);
       
-      // Return a placeholder view until navigation kicks in
-      return (
-          <View style={styles.container}>
-              <Text>Loading Journal...</Text>
-          </View>
-      );
   } else {
       return (
-      // <View style={styles.container}>
-      // <Text>WeatherScreen - {catId} </Text>
-      // </View>
-      //jump between the All Categories screens
-
       <View style={styles.container}>
         <Text>Das ist screen - {catId} </Text>
       </View>
       )
     }
 };
-
-//   <Weather />
 
 export default WeatherScreen;
 

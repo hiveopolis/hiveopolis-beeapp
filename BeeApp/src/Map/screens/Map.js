@@ -68,7 +68,7 @@ function Map({ navigation, route }) {
       >
         {selectedLocation && (
           <Marker
-            title="Hiveopolis beehive"
+            title="Beehive Adam"
             coordinate={{
               latitude: selectedLocation.lat,
               longitude: selectedLocation.lng,
