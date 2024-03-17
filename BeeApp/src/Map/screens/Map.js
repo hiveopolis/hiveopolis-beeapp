@@ -2,6 +2,7 @@ import { useCallback, useLayoutEffect, useState } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import IconButton from '../components/IconButton';
+import { Image } from 'react-native';
 
 function Map({ navigation, route }) {
     const initialLocation = route.params && {
@@ -67,12 +68,18 @@ function Map({ navigation, route }) {
       >
         {selectedLocation && (
           <Marker
-            title="Picked Location"
+            title="Hiveopolis beehive"
             coordinate={{
               latitude: selectedLocation.lat,
               longitude: selectedLocation.lng,
             }}
-          />
+          >
+            <Image
+              source={require('/Users/eugenpuzynin/Downloads/Version-0.11-main/BeeApp/assets/apiary.png')}
+              style={{ width: 30, height: 30, tintColor: 'black' }}
+              resizeMode="contain"
+            />
+          </Marker>
         )}
       </MapView>
     );

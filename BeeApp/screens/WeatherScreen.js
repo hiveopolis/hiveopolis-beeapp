@@ -1,12 +1,13 @@
 import { useLayoutEffect } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import { CATEGORIES } from '../data/dummy-data';
+import { CATEGORIES } from '../data/categories';
 
 import Weather from '../src/OpenWeatherAPI';
 import HOBeehiveLiveView from '../src/HOBeehiveLiveView/HOBeehiveLiveView'
 import MapAndPlaces from '../src/Map/Map'
 
 import Autentication from '../src/UserAuthentication';
+import { useEffect, useState } from 'react';
 
 function WeatherScreen({route, navigation}) {
     const catId = route.params.categoryId;
@@ -46,17 +47,22 @@ function WeatherScreen({route, navigation}) {
     } else if (catId == 'c5' ) {
         return (
           <View style={styles.container}>
-            <Text>Das ist screen - {catId} </Text>
+            <MapAndPlaces />
           </View>
         )
     } 
-    else if (catId == 'c6' ) {
-        return (
+    else if (catId == 'c6') {
+      useEffect(() => {
+          navigation.navigate('Journal');
+      }, []);
+      
+      // Return a placeholder view until navigation kicks in
+      return (
           <View style={styles.container}>
-            <Text>Das ist screen - {catId} </Text>
+              <Text>Loading Journal...</Text>
           </View>
-        )
-    } else {
+      );
+  } else {
       return (
       // <View style={styles.container}>
       // <Text>WeatherScreen - {catId} </Text>

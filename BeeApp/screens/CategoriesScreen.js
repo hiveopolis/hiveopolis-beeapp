@@ -1,6 +1,6 @@
 import { FlatList } from "react-native";
 import CategoryGridTile from "../components/CategoryGridTile";
-import { CATEGORIES } from "../data/dummy-data"; 
+import { CATEGORIES } from "../data/categories"; 
 
 
 
@@ -13,7 +13,7 @@ function CategoriesScreen({ navigation }) {
         }
     
         return (
-        <CategoryGridTile title={itemData.item.title} color={itemData.item.color} onPress={pressHandler}/>
+        <CategoryGridTile title={itemData.item.title} color={itemData.item.color} icon={itemData.item.icon} onPress={pressHandler}/>
         );
     }
     return (

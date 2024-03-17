@@ -1,6 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 import { Ionicons } from '@expo/vector-icons'
-import { Colors } from "../constants/colors";
 
 
 function OutlinedButton ({ onPress, icon, children}) {
@@ -9,7 +8,7 @@ function OutlinedButton ({ onPress, icon, children}) {
         style={({ pressed }) => [styles.button, pressed && styles.pressed]} 
         onPress={onPress}
         >
-            <Ionicons style={styles.icon} name={icon} size={18} color={Colors.primary500} />
+            <Ionicons style={styles.icon} name={icon} size={18} color={'white'} />
             <Text style={styles.text}>{children}</Text>
         </Pressable>
     );
@@ -25,8 +24,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: Colors.primary500,
+        backgroundColor: '#EBBC4E',
     },
     pressed: {
         opacity: 0.7
@@ -35,6 +33,6 @@ const styles = StyleSheet.create({
         marginRight: 6
     },
     text: {
-        color: Colors.primary500
+        color: '#ffffff'
     }
 });

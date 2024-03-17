@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
-
 import OutlinedButton from '../components/OutlinedButton.js';
-import { Colors } from '../constants/colors';
 import { fetchPlaceDetails } from '../database';
 
 function PlaceDetails({ route, navigation }) {
@@ -73,7 +71,7 @@ function PlaceDetails({ route, navigation }) {
       padding: 20,
     },
     address: {
-      color: Colors.primary500,
+      color: 'black',
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 16,

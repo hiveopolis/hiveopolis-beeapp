@@ -1,6 +1,5 @@
 import { Alert, Image, Text, StyleSheet, View } from "react-native";
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from 'expo-location';
-import { Colors } from "../constants/colors";
 import OutlinedButton from "./OutlinedButton";
 import { useEffect, useState } from "react";
 import { getAddress, getMapPreview } from "../location/location";
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Colors.primary100,
+        borderWidth: 1,
         borderRadius: 4
     },
     actions: {

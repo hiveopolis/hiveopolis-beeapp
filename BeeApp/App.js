@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import JournalScreen from '/Users/eugenpuzynin/Downloads/Version-0.11-main/BeeApp/screens/JournalScreen.js';
 
 import CategoriesScreen from './screens/CategoriesScreen';
 import WeatherScreen from './screens/WeatherScreen';
@@ -23,22 +24,24 @@ export default function App() {
       });
   }, []);
 
-
+//FDA403
   return (
     <>
     <StatusBar style='light' />
     <NavigationContainer>
+    
       <Stack.Navigator screenOptions={{
-          headerStyle: { backgroundColor: '#351401' },
-          headerTintColor: 'white',
-          contentStyle: { backgroundColor: '#3f2f25' },
+          headerStyle: { backgroundColor: '#FDA403' },
+          headerTintColor: 'black',
+          contentStyle: { backgroundColor: '#ECDBBA' },
       }}>
         <Stack.Screen name="HIVEOPOLIS" component={CategoriesScreen} options={{
-          title: 'All Categories',
+          title: 'Categories',
 
         }}
 
         />
+        <Stack.Screen name="Journal" component={JournalScreen} />
         <Stack.Screen name="WeatherScreen" component={WeatherScreen} options={({ route, navigation }) => {
           const catId = route.params.categoryId;
           return {

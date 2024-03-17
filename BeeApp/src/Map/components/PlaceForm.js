@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 
-import { Colors } from '../constants/colors';
 import Button from './Button';
 import ImagePicker from './ImagePicker';
 import LocationPicker from './LocationPicker';
@@ -58,15 +57,15 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: 'bold',
         marginBottom: 4,
-        color: Colors.primary500
+        color: 'black'
     },
     input: {
         marginVertical: 8,
         paddingHorizontal: 4,
         paddingVertical: 8,
         fontSize: 16,
-        borderBottomColor: Colors.primary700,
+        borderBottomColor: '#ffffff',
         borderBottomWidth: 2,
-        backgroundColor: Colors.primary100
+        backgroundColor: '#ffffff'
     },
 })

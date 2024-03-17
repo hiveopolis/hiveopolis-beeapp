@@ -1,7 +1,6 @@
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
 import { useState } from 'react';
-import { Colors } from '../constants/colors';
 import OutlinedButton from './OutlinedButton';
 
 function ImagePicker({ onTakeImage }) {
@@ -70,7 +69,7 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Colors.primary100,
+        borderWidth: 1,
         borderRadius: 4
     },
     image: {

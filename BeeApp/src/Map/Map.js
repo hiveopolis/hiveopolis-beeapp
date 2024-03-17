@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AllPlaces from './screens/AllPlaces';
 import AddPlace from './screens/AddPlace';
 import IconButton from './components/IconButton';
-import { Colors } from './constants/colors';
 import Map from './screens/Map';
 import PlaceDetails from './screens/PlaceDetails';
 
@@ -17,19 +16,19 @@ export default function MapAndPlaces() {
     <>
       <StatusBar style='dark' />
         <Stack.Navigator screenOptions={{
-          headerStyle: {backgroundColor: Colors.primary500},
-          headerTintColor: Colors.gray700,
-          contentStyle: { backgroundColor: Colors.gray700 },
+          headerStyle: {backgroundColor: '#EBBC4E'},
+          headerTintColor: '#ffffff',
+          contentStyle: { backgroundColor: '#ECDBBA' },
         }}>
           <Stack.Screen 
           name="AllPlaces" 
           component={AllPlaces} 
           options={({navigation}) => ({
-            title: 'Your Photos of Places',
+            title: 'Your Places',
             headerRight: ({tintColor}) => (
             <IconButton 
             icon="add" 
-            size={24} 
+            size={30} 
             color={tintColor} 
             onPress={() => navigation.navigate('AddPlace')}
 

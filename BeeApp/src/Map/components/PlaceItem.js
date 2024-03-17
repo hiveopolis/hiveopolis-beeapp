@@ -1,6 +1,4 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { Colors } from "../constants/colors";
-
 
 function PlaceItem({ place, onSelect }) {
     return (
@@ -25,7 +23,7 @@ function PlaceItem({ place, onSelect }) {
       alignItems: 'flex-start',
       borderRadius: 6,
       marginVertical: 12,
-      backgroundColor: Colors.primary500,
+      backgroundColor: '#ECDBBA',
       elevation: 2,
       shadowColor: 'black',
       shadowOpacity: 0.15,
@@ -48,10 +46,10 @@ function PlaceItem({ place, onSelect }) {
     title: {
       fontWeight: 'bold',
       fontSize: 18,
-      color: Colors.gray700,
+      color: 'black',
     },
     address: {
       fontSize: 12,
-      color: Colors.gray700,
+      color: 'black',
     },
   });
