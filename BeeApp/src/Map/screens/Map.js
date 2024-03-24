@@ -1,8 +1,7 @@
-import { useCallback, useLayoutEffect, useState } from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { Alert, StyleSheet, View, Text, Modal, Button, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import IconButton from '../components/IconButton';
-import { Image } from 'react-native';
 
 function Map({ navigation, route }) {
     const initialLocation = route.params && {
@@ -11,6 +10,15 @@ function Map({ navigation, route }) {
     };
   
     const [selectedLocation, setSelectedLocation] = useState(initialLocation);
+    const [modalVisible, setModalVisible] = useState(false);
+    // Example state for beehive details. Replace with actual data source.
+    const [hiveDetails, setHiveDetails] = useState({
+      beesInside: 10000,
+      beesOutside: 300,
+      weight: "30kg",
+      temperature: "34°C",
+      humidity: "45%"
+    });
   
     const region = {
       latitude: initialLocation ? initialLocation.lat : 47.08084083743499,
@@ -20,7 +28,10 @@ function Map({ navigation, route }) {
     };
   
     function selectLocationHandler(event) {
+      // Here, it's possible to fetch the beehive details using the selected location.
+      // For now, it just opens the modal with static data.
       if (initialLocation) {
+        setModalVisible(true);
         return;
       }
       const lat = event.nativeEvent.coordinate.latitude;
@@ -29,66 +40,89 @@ function Map({ navigation, route }) {
       setSelectedLocation({ lat: lat, lng: lng });
     }
   
-    const savePickedLocationHandler = useCallback(() => {
-      if (!selectedLocation) {
-        Alert.alert(
-          'No location picked!',
-          'You have to pick a location (by tapping on the map) first!'
-        );
-        return;
-      }
-  
-      navigation.navigate('AddPlace', {
-        pickedLat: selectedLocation.lat,
-        pickedLng: selectedLocation.lng,
-      });
-    }, [navigation, selectedLocation]);
-  
-    useLayoutEffect(() => {
-      if (initialLocation) {
-        return;
-      }
-      navigation.setOptions({
-        headerRight: ({ tintColor }) => (
-          <IconButton
-            icon="save"
-            size={24}
-            color={tintColor}
-            onPress={savePickedLocationHandler}
-          />
-        ),
-      });
-    }, [navigation, savePickedLocationHandler, initialLocation]);
+    // Add logic to fetch and update hiveDetails based on the selected location.
   
     return (
-      <MapView
-        style={styles.map}
-        initialRegion={region}
-        onPress={selectLocationHandler}
-      >
-        {selectedLocation && (
-          <Marker
-            title="Beehive Adam"
-            coordinate={{
-              latitude: selectedLocation.lat,
-              longitude: selectedLocation.lng,
-            }}
-          >
-            <Image
-              source={require('../../../assets/apiary.png')}
-              style={{ width: 30, height: 30, tintColor: 'black' }}
-              resizeMode="contain"
-            />
-          </Marker>
-        )}
-      </MapView>
+      <View style={{ flex: 1 }}>
+        <MapView
+          style={styles.map}
+          initialRegion={region}
+          onPress={selectLocationHandler}
+        >
+          {selectedLocation && (
+            <Marker
+              title="Beehive Adam"
+              coordinate={{
+                latitude: selectedLocation.lat,
+                longitude: selectedLocation.lng,
+              }}
+              onPress={() => setModalVisible(true)}
+            >
+              <Image
+                source={require('../../../assets/apiary.png')}
+                style={{ width: 30, height: 30, tintColor: 'black' }}
+                resizeMode="contain"
+              />
+            </Marker>
+          )}
+        </MapView>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Beehive Adam Details:</Text>
+              <Text>Bees inside: {hiveDetails.beesInside}</Text>
+              <Text>Bees outside: {hiveDetails.beesOutside}</Text>
+              <Text>Weight: {hiveDetails.weight}</Text>
+              <Text>Temperature: {hiveDetails.temperature}</Text>
+              <Text>Humidity: {hiveDetails.humidity}</Text>
+              <Button
+                title="Close"
+                onPress={() => setModalVisible(!modalVisible)}
+              />
+            </View>
+          </View>
+        </Modal>
+      </View>
     );
-  }
-  
-  export default Map;
-  
-  const styles = StyleSheet.create({
+}
+
+const styles = StyleSheet.create({
     map: {
       flex: 1,
     },
-  });
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: "center"
+    }
+});
+
+export default Map;

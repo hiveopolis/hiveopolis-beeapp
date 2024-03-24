@@ -45,13 +45,12 @@ function WeatherScreen({route, navigation}) {
           </View>
         )
     } else if (catId == 'c5' ) {
-        return (
-          <View style={styles.container}>
-            <MapAndPlaces />
-          </View>
-        )
-    } 
-    else if (catId == 'c6') {
+      return (
+        <View style={styles.container}>
+          <MapAndPlaces />
+        </View>
+      )
+    } else if (catId == 'c6') {
       useEffect(() => {
           navigation.navigate('Journal');
       }, []);

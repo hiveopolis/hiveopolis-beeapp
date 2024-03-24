@@ -36,7 +36,7 @@ export default function App() {
           contentStyle: { backgroundColor: '#ECDBBA' },
       }}>
         <Stack.Screen name="HIVEOPOLIS" component={CategoriesScreen} options={{
-          title: 'Categories',
+          title: 'Home',
 
         }}
 
