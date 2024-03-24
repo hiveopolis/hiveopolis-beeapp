@@ -11,7 +11,6 @@ function Map({ navigation, route }) {
   
     const [selectedLocation, setSelectedLocation] = useState(initialLocation);
     const [modalVisible, setModalVisible] = useState(false);
-    // Example state for beehive details. Replace with actual data source.
     const [hiveDetails, setHiveDetails] = useState({
       beesInside: 10000,
       beesOutside: 300,
@@ -28,8 +27,6 @@ function Map({ navigation, route }) {
     };
   
     function selectLocationHandler(event) {
-      // Here, it's possible to fetch the beehive details using the selected location.
-      // For now, it just opens the modal with static data.
       if (initialLocation) {
         setModalVisible(true);
         return;
@@ -39,8 +36,6 @@ function Map({ navigation, route }) {
   
       setSelectedLocation({ lat: lat, lng: lng });
     }
-  
-    // Add logic to fetch and update hiveDetails based on the selected location.
   
     return (
       <View style={{ flex: 1 }}>
@@ -77,12 +72,12 @@ function Map({ navigation, route }) {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Beehive Adam Details:</Text>
-              <Text>Bees inside: {hiveDetails.beesInside}</Text>
-              <Text>Bees outside: {hiveDetails.beesOutside}</Text>
-              <Text>Weight: {hiveDetails.weight}</Text>
-              <Text>Temperature: {hiveDetails.temperature}</Text>
-              <Text>Humidity: {hiveDetails.humidity}</Text>
+              <Text style={styles.titleText}>🐝 Beehive Adam Details:</Text>
+              <Text style={styles.detailText}>👥 Bees inside: <Text style={styles.infoText}>{hiveDetails.beesInside}</Text></Text>
+              <Text style={styles.detailText}>🌼 Bees outside: <Text style={styles.infoText}>{hiveDetails.beesOutside}</Text></Text>
+              <Text style={styles.detailText}>⚖️ Weight: <Text style={styles.infoText}>{hiveDetails.weight}</Text></Text>
+              <Text style={styles.detailText}>🌡️ Temperature: <Text style={styles.infoText}>{hiveDetails.temperature}</Text></Text>
+              <Text style={styles.detailText}>💧 Humidity: <Text style={styles.infoText}>{hiveDetails.humidity}</Text></Text>
               <Button
                 title="Close"
                 onPress={() => setModalVisible(!modalVisible)}
@@ -102,27 +97,37 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      marginTop: 22
+      marginTop: 22,
     },
     modalView: {
       margin: 20,
-      backgroundColor: "white",
+      backgroundColor: "#f0f0f0",
       borderRadius: 20,
       padding: 35,
-      alignItems: "center",
+      alignItems: "flex-start",
       shadowColor: "#000",
       shadowOffset: {
         width: 0,
-        height: 2
+        height: 2,
       },
       shadowOpacity: 0.25,
       shadowRadius: 4,
-      elevation: 5
+      elevation: 5,
     },
-    modalText: {
+    titleText: {
       marginBottom: 15,
-      textAlign: "center"
-    }
+      textAlign: "center",
+      fontSize: 18,
+      fontWeight: "bold",
+      color: "#333",
+    },
+    detailText: {
+      fontSize: 16,
+      marginBottom: 5,
+    },
+    infoText: {
+      fontWeight: "bold",
+    },
 });
 
 export default Map;
