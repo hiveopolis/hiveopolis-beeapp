@@ -2,7 +2,7 @@ import { View, Text, Alert, SafeAreaView, StyleSheet, ActivityIndicator, ScrollV
 import React, {useEffect, useState} from "react";
 import * as Location from 'expo-location';
 
-const openWeatherKey = `840c61878bfe3a3937775f340a13e46c`
+const openWeatherKey = `ADD API KEY FROM OPENWEATHER HERE`
 let url = `https://api.openweathermap.org/data/2.5/onecall?&units=metric&exclude=minutely&appid=${openWeatherKey}`
 
 
