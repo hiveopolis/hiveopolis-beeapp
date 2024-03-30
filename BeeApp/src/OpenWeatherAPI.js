@@ -14,7 +14,7 @@ const Weather = () => {
 
     const loadForecast = async () => {
         setRefreshing(true);
-        //ask for permission to asccess location
+        //ask for permission to access location
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
             Alert.alert('Permission to access location was denied');

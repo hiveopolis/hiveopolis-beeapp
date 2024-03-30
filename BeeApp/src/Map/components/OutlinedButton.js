@@ -1,14 +1,18 @@
-import { Pressable, StyleSheet, Text } from "react-native";
-import { Ionicons } from '@expo/vector-icons'
+import React from 'react';
+import { Pressable, StyleSheet, Text, Image } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
-
-function OutlinedButton ({ onPress, icon, children}) {
+function OutlinedButton({ onPress, icon, children, image, imageStyle }) {
     return (
         <Pressable 
-        style={({ pressed }) => [styles.button, pressed && styles.pressed]} 
-        onPress={onPress}
+            style={({ pressed }) => [styles.button, pressed && styles.pressed]} 
+            onPress={onPress}
         >
-            <Ionicons style={styles.icon} name={icon} size={18} color={'white'} />
+            {image ? (
+                <Image source={image} style={[styles.iconImage, imageStyle]} />
+            ) : (
+                <Ionicons name={icon} size={18} color={'white'} />
+            )}
             <Text style={styles.text}>{children}</Text>
         </Pressable>
     );
@@ -18,21 +22,24 @@ export default OutlinedButton;
 
 const styles = StyleSheet.create({
     button: {
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        margin: 4,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        margin: 4,
         backgroundColor: '#EBBC4E',
+        borderRadius: 4,
     },
     pressed: {
-        opacity: 0.7
+        opacity: 0.7,
     },
-    icon: {
-        marginRight: 6
+    iconImage: {
+        width: 18,
+        height: 18,
+        marginRight: 6,
     },
     text: {
-        color: '#ffffff'
-    }
+        color: '#ffffff',
+    },
 });
