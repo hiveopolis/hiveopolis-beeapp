@@ -14,7 +14,4 @@ jobs:
        uses: digitalocean/app_action/deploy@v2
        with:
          token: ${{ secrets.MY_DIGITALOCEAN_ACCESS_TOKEN }}
-     - name: Run App
-       run: |
-         npx expo start --tunnel
      
