@@ -2,6 +2,7 @@ name: sample-nodejs
 
 services:
 - environment_slug: node-js
+  http_port: 19000
   github:
     branch: develop
     deploy_on_push: true
