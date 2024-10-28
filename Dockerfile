@@ -1,5 +1,5 @@
 # Use an official Node image as the base
-FROM node:10.5.0-slim
+FROM node:21.6.2-slim
 
 # Set working directory in the container
 WORKDIR /app
