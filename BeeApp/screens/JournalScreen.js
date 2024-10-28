@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, SafeAreaView, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-function JournalScreen({ navigation }) {
+function JournalScreen({ navigation }) 
+{
     const [note, setNote] = useState('');
 
     const saveNote = () => {

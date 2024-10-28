@@ -2,16 +2,19 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import JournalScreen from './screens/JournalScreen.js';
 
+import JournalScreen from './screens/JournalScreen.js';
 import CategoriesScreen from './screens/CategoriesScreen';
 import WeatherScreen from './screens/WeatherScreen';
+import MapAll from './src/Map/screens/MapAll';
+
 import { useEffect, useState } from 'react';
 import { init } from './src/Map/database';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default function App() 
+{
   const [dbInitialized, setDbInitialized] = useState(false);
 
   useEffect(() => {
@@ -37,9 +40,7 @@ export default function App() {
       }}>
         <Stack.Screen name="HIVEOPOLIS" component={CategoriesScreen} options={{
           title: 'Home',
-
         }}
-
         />
         <Stack.Screen name="Journal" component={JournalScreen} />
         <Stack.Screen name="WeatherScreen" component={WeatherScreen} options={({ route, navigation }) => {
@@ -48,8 +49,8 @@ export default function App() {
             title: catId,
           };
         }}
-
         />
+        <Stack.Screen name="MainMap" component={MapAll} />
       </Stack.Navigator>
     </NavigationContainer>
     </>

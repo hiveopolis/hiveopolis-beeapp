@@ -1,10 +1,42 @@
 import { useEffect, useState } from 'react';
-import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, Image, View, Text, StyleSheet, Alert } from 'react-native';
 import OutlinedButton from '../components/OutlinedButton.js';
-import { fetchPlaceDetails } from '../database';
+import { fetchPlaceDetails, deletePlace } from '../database';
 
-function PlaceDetails({ route, navigation }) {
+
+
+function PlaceDetails({ route, navigation }) 
+{
     const [fetchedPlace, setFetchedPlace] = useState();
+  
+    function showAlert()
+    {
+      Alert.alert(
+        'Delete Place',
+        'Are you sure you want to delete this place?',
+        [
+          {
+            text: 'Delete',
+            onPress: onDeletePlace,
+            style: 'cancel',
+          },
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+        ],
+        {
+          cancelable: true,
+          onDismiss: () => {}
+        },
+      );
+    }
+    
+    async function onDeletePlace() {
+      const result = await deletePlace(selectedPlaceId);
+      navigation.navigate('AllPlaces');
+    }
   
     function showOnMapHandler() {
       navigation.navigate('Map', {
@@ -44,6 +76,9 @@ function PlaceDetails({ route, navigation }) {
           </View>
           <OutlinedButton icon="map" onPress={showOnMapHandler}>
             View on Map
+          </OutlinedButton>
+          <OutlinedButton icon="trash-outline" onPress={showAlert}>
+            Delete
           </OutlinedButton>
         </View>
       </ScrollView>

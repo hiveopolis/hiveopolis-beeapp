@@ -4,7 +4,8 @@ import { CATEGORIES } from "../data/categories";
 
 
 
-function CategoriesScreen({ navigation }) {
+function CategoriesScreen({ navigation }) 
+{
     function renderCategoryItem(itemData) {
         function pressHandler() {
             navigation.navigate('WeatherScreen', {
@@ -13,11 +14,11 @@ function CategoriesScreen({ navigation }) {
         }
     
         return (
-        <CategoryGridTile title={itemData.item.title} color={itemData.item.color} icon={itemData.item.icon} onPress={pressHandler}/>
+          <CategoryGridTile title={itemData.item.title} color={itemData.item.color} icon={itemData.item.icon} onPress={pressHandler}/>
         );
     }
     return (
-    <FlatList data={CATEGORIES} keyExtractor={(item) => item.id} renderItem={renderCategoryItem} numColumns={2} />
+      <FlatList data={CATEGORIES} keyExtractor={(item) => item.id} renderItem={renderCategoryItem} numColumns={2} />
     );
 }
 

@@ -11,45 +11,45 @@ const Stack = createNativeStackNavigator();
 
 
 // removed <NavigationContainer>
-export default function MapAndPlaces() {
+export default function MapAndPlaces() 
+{
   return (
     <>
       <StatusBar style='dark' />
-        <Stack.Navigator screenOptions={{
-          headerStyle: {backgroundColor: '#EBBC4E'},
-          headerTintColor: '#ffffff',
-          contentStyle: { backgroundColor: '#ECDBBA' },
-        }}>
-          <Stack.Screen 
+      <Stack.Navigator screenOptions={{
+        headerStyle: {backgroundColor: '#EBBC4E'},
+        headerTintColor: '#ffffff',
+        contentStyle: { backgroundColor: '#ECDBBA' },
+      }}>
+        <Stack.Screen 
           name="AllPlaces" 
           component={AllPlaces} 
           options={({navigation}) => ({
             title: 'Your Places',
             headerRight: ({tintColor}) => (
             <IconButton 
-            icon="add" 
-            size={30} 
-            color={tintColor} 
-            onPress={() => navigation.navigate('AddPlace')}
+              icon="add" 
+              size={30} 
+              color={tintColor} 
+              onPress={() => navigation.navigate('AddPlace')}
 
             />
             ),
           })}
-
-          />
-          <Stack.Screen name="AddPlace" component={AddPlace} options={{
+        />
+        <Stack.Screen name="AddPlace" component={AddPlace} options={{
             title: 'Add a new Place',
           }}
-          />
-          <Stack.Screen name="Map" component={Map} />
-          <Stack.Screen
-            name="PlaceDetails"
-            component={PlaceDetails}
-            options={{
-              title: 'Loading Place...',
-            }}
-          />
-        </Stack.Navigator>
+        />
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen
+          name="PlaceDetails"
+          component={PlaceDetails}
+          options={{
+            title: 'Loading Place...',
+          }}
+        />
+      </Stack.Navigator>
     </>
   );
 }

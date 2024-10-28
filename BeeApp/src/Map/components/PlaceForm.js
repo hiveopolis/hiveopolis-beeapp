@@ -10,7 +10,8 @@ import HiveopolisImage from '../../../assets/hiveopolis-hive.png';
 import BeehiveImage from '../../../assets/apiary.png';
 import FlowerImage from '../../../assets/favicon.png';
 
-function PlaceForm({ onCreatePlace }) {
+function PlaceForm({ onCreatePlace }) 
+{
     const [enteredTitle, setEnteredTitle] = useState('');
     const [selectedImage, setSelectedImage] = useState();
     const [pickedLocation, setPickedLocation] = useState();
@@ -28,7 +29,9 @@ function PlaceForm({ onCreatePlace }) {
     }, []);
 
     const savePlaceHandler = () => {
+        console.log(pickedLocation);
         const placeData = new Place(enteredTitle, selectedImage, pickedLocation);
+        console.log(placeData);
         onCreatePlace(placeData);
     };
 
@@ -63,6 +66,8 @@ function PlaceForm({ onCreatePlace }) {
             <OutlinedButton onPress={onAddFlower} image={FlowerImage}>Add Flower</OutlinedButton>
             
             <Button onPress={savePlaceHandler}>Add Place</Button>
+            
+            <View style={{ width: 50, height: 40}} />
         </ScrollView>
     );
 }

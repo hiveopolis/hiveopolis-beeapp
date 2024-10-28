@@ -3,12 +3,16 @@ import { Alert, Modal, StyleSheet, Text, View, Button, Dimensions, Image } from 
 import MapView, { Marker } from 'react-native-maps';
 import { LineChart, BarChart } from 'react-native-chart-kit';
 
-function Map({ route }) {
+function Map({ route }) 
+{
+  
   const [modalVisible, setModalVisible] = useState(false);
+  
   const initialLocation = route.params && {
     lat: route.params.initialLat,
     lng: route.params.initialLng,
   };
+  
   const [selectedLocation, setSelectedLocation] = useState(initialLocation);
 
   const [hiveDetails, setHiveDetails] = useState({
@@ -86,7 +90,7 @@ function Map({ route }) {
             }}
             anchor={{ x: 0.5, y: 0.5 }}
           >
-            <Image source={require('../../../assets/hiveopolis-hive.png')} style={{ width: 80, height: 80 }} />
+            <Image source={require('../../../assets/hiveopolis-hive.png')} style={{ width: 32, height: 32 }} />
           </Marker>
         )}
       </MapView>

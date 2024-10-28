@@ -6,6 +6,9 @@ import Weather from '../src/OpenWeatherAPI';
 import HOBeehiveLiveView from '../src/HOBeehiveLiveView/HOBeehiveLiveView'
 import MapAndPlaces from '../src/Map/Map'
 
+import Map from '../src/Map/screens/Map';
+import JournalScreen from '../screens/JournalScreen'
+
 import Autentication from '../src/UserAuthentication';
 import { useEffect, useState } from 'react';
 
@@ -45,15 +48,24 @@ function WeatherScreen({route, navigation}) {
           </View>
         )
     } else if (catId == 'c5' ) {
+      useEffect(() => {
+          navigation.navigate('MainMap');
+      }, []);
+      return;
       return (
         <View style={styles.container}>
           <MapAndPlaces />
         </View>
       )
     } else if (catId == 'c6') {
-      useEffect(() => {
+      return (
+        <View style={styles.container}>
+          <JournalScreen />
+        </View>
+      )
+      /*useEffect(() => {
           navigation.navigate('Journal');
-      }, []);
+      }, []);*/
       
   } else {
       return (

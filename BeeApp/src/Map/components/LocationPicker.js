@@ -1,12 +1,15 @@
 import { Alert, Image, Text, StyleSheet, View } from "react-native";
-import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from 'expo-location';
+
 import OutlinedButton from "./OutlinedButton";
+
 import { useEffect, useState } from "react";
 import { getAddress, getMapPreview } from "../location/location";
+
 import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
+import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from 'expo-location';
 
-
-function LocationPicker({ onPickLocation }) {
+function LocationPicker({ onPickLocation }) 
+{
     const [pickedLocation, setPickedLocation] = useState();
     const isFocused = useIsFocused();
 
@@ -30,10 +33,12 @@ function LocationPicker({ onPickLocation }) {
     useEffect(() => {
         async function handleLocation() {
             if (pickedLocation) {
+                console.log("dada: " + pickedLocation);
                 const address = await getAddress(
                     pickedLocation.lat, 
                     pickedLocation.lng
                 );
+                console.log("address: " + address);
                 onPickLocation({...pickedLocation, address: address});
             }
         }
@@ -41,6 +46,8 @@ function LocationPicker({ onPickLocation }) {
     }, [pickedLocation, onPickLocation]);
 
     async function verifyPermissions() {
+        const permissionResponse = await requestPermission();
+      
         if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
             const permissionResponse = await requestPermission();
 
@@ -58,12 +65,14 @@ function LocationPicker({ onPickLocation }) {
     }
 
     async function getLocationHandler() {
+        console.log("get location");
         const hasPermission = await verifyPermissions();
-
+        console.log("hasPermission: " + hasPermission);
         if (!hasPermission) {
             return;
         }
         const location = await getCurrentPositionAsync();
+        console.log(location);
         setPickedLocation({
             lat: location.coords.latitude,
             lng: location.coords.longitude
@@ -85,7 +94,7 @@ function LocationPicker({ onPickLocation }) {
                 {locationPreview}
             </View>
             <View style={styles.actions}>
-                <OutlinedButton icon="location" onPress={getLocationHandler}>Locate User</OutlinedButton>
+                <OutlinedButton icon="location" onPress={getLocationHandler}>Current Location</OutlinedButton>
                 <OutlinedButton icon="map" onPress={pickOnMapHandler}>Pick on Map</OutlinedButton>
             </View>
         </View>

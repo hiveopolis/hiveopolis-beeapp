@@ -1,6 +1,7 @@
 
 // HACK: https://github.com/mqttjs/MQTT.js/issues/1558
-import mqtt from "mqtt/dist/mqtt";
+//import mqtt from "mqtt/dist/mqtt";
+const mqtt = require("mqtt");
 
 const url = 'wss://science.itf.llu.lv:443/mqtt';
 
@@ -16,6 +17,7 @@ const options = {
       reconnectPeriod: 1000,
       connectTimeout: 4000,
       keepalive: 60,
+      clean: true,
 };
 
 const createRequest = (hiveId) => 

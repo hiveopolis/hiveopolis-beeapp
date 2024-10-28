@@ -1,4 +1,4 @@
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from 'expo-sqlite/legacy';
 
 import { Place } from '../Map/models/place';
 
@@ -31,6 +31,7 @@ export function init() {
   }
   
   export function insertPlace(place) {
+    console.log(place);
     const promise = new Promise((resolve, reject) => {
       database.transaction((tx) => {
         tx.executeSql(
@@ -42,6 +43,25 @@ export function init() {
             place.location.lat,
             place.location.lng,
           ],
+          (_, result) => {
+            resolve(result);
+          },
+          (_, error) => {
+            reject(error);
+          }
+        );
+      });
+    });
+  
+    return promise;
+  }
+  
+  export function deletePlace(id) {
+    const promise = new Promise((resolve, reject) => {
+      database.transaction((tx) => {
+        tx.executeSql(
+          'DELETE FROM places WHERE id = ?',
+          [id],
           (_, result) => {
             resolve(result);
           },
