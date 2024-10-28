@@ -1,0 +1,9 @@
+name: sample-nodejs
+
+services:
+- environment_slug: node-js
+  github:
+    branch: develop
+    deploy_on_push: true
+    repo: https://github.com/hiveopolis/hiveopolis-beeapp
+  name: sample-nodejs
