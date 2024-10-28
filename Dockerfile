@@ -1,11 +1,8 @@
 # Use an official Node image as the base
-FROM node:18-slim
+FROM node:10.5.0-slim
 
 # Set working directory in the container
 WORKDIR /app
-
-# Ensure npm is at version 10.5.0
-RUN npm install -g npm@10.5.0
 
 # Install Expo CLI globally
 RUN npm install -g expo-cli
