@@ -14,4 +14,4 @@ RUN npm install
 EXPOSE 19000
 
 # Start Expo server
-CMD ["npx", "expo", "start", "--tunnel"]
+CMD ["npx", "expo", "start", "--tunnel", "--no-interactive"]
