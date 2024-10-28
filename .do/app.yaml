@@ -1,10 +1,8 @@
 name: sample-nodejs
 
 services:
-- environment_slug: node-js
-  http_port: 19000
-  github:
-    branch: develop
-    deploy_on_push: true
-    repo: https://github.com/hiveopolis/hiveopolis-beeapp
-  name: sample-nodejs
+  - name: web
+    image:
+      dockerfile_path: ../Dockerfile
+    http_port: 19000
+    run_command: "npx expo start --lan --host 0.0.0.0"

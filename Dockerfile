@@ -16,4 +16,4 @@ RUN npm install
 EXPOSE 19000 8081 8082
 
 # Start Expo server
-CMD ["npx", "expo", "start", "--lan"]
+#CMD ["npx", "expo", "start", "--tunnel"]
