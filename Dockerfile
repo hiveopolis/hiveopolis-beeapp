@@ -7,10 +7,13 @@ WORKDIR /app
 # Copy project files from the BeeApp subdirectory into the container
 COPY BeeApp /app
 
-CMD ["cat", "package.json"]
+#CMD ["cat", "package.json"]
 
 # Install project dependencies
 RUN npm install
 
 # Expose Expo default port
 EXPOSE 19000
+
+# Start Expo server
+CMD ["npx", "expo", "start", "--tunnel"]
