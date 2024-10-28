@@ -34,7 +34,8 @@
     "url": "^0.11.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0"
+    "@babel/core": "^7.24.0",
+    "@expo/ngrok": "^4.1.0",
   },
   "private": true
 }
