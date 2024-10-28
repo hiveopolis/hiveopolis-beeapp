@@ -11,7 +11,7 @@ COPY BeeApp /app
 RUN npm install
 
 # Expose Expo default port
-EXPOSE 19000
+EXPOSE 19000 8081
 
 # Start Expo server
-CMD ["npx", "expo", "start", "--tunnel"]
+CMD ["npx", "expo", "start", "--lan"]
