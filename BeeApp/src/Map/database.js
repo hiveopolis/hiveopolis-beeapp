@@ -1,137 +1,136 @@
-import * as SQLite from 'expo-sqlite/legacy';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Place } from '../Map/models/place';
 
-const database = SQLite.openDatabase('places.db');
+const PLACES_KEY = 'places';
 
-export function init() {
-    const promise = new Promise((resolve, reject) => {
-      database.transaction((tx) => {
-        tx.executeSql(
-          `CREATE TABLE IF NOT EXISTS places (
-            id INTEGER PRIMARY KEY NOT NULL,
-            title TEXT NOT NULL,
-            imageUri TEXT NOT NULL,
-            address TEXT NOT NULL,
-            lat REAL NOT NULL,
-            lng REAL NOT NULL
-          )`,
-          [],
-          () => {
-            resolve();
-          },
-          (_, error) => {
-            reject(error);
-          }
-        );
-      });
-    });
-  
-    return promise;
+async function clearStorage() {
+  try {
+    await AsyncStorage.clear();
+    console.log('Storage successfully cleared!');
+  } catch (error) {
+    console.error('Failed to clear storage:', error);
   }
-  
-  export function insertPlace(place) {
-    console.log(place);
-    const promise = new Promise((resolve, reject) => {
-      database.transaction((tx) => {
-        tx.executeSql(
-          `INSERT INTO places (title, imageUri, address, lat, lng) VALUES (?, ?, ?, ?, ?)`,
-          [
-            place.title,
-            place.imageUri,
-            place.address,
-            place.location.lat,
-            place.location.lng,
-          ],
-          (_, result) => {
-            resolve(result);
-          },
-          (_, error) => {
-            reject(error);
-          }
-        );
-      });
-    });
-  
-    return promise;
+}
+
+// Initialize storage (optional in AsyncStorage)
+export async function init() {
+  try {
+    //clearStorage();
+    const existingPlaces = await AsyncStorage.getItem(PLACES_KEY);
+    if (!existingPlaces) {
+      await AsyncStorage.setItem(PLACES_KEY, JSON.stringify([]));
+    }
+    return Promise.resolve();
+  } catch (error) {
+    return Promise.reject(error);
   }
-  
-  export function deletePlace(id) {
-    const promise = new Promise((resolve, reject) => {
-      database.transaction((tx) => {
-        tx.executeSql(
-          'DELETE FROM places WHERE id = ?',
-          [id],
-          (_, result) => {
-            resolve(result);
-          },
-          (_, error) => {
-            reject(error);
-          }
-        );
-      });
-    });
-  
-    return promise;
+}
+
+// Insert a new place
+export async function insertPlace(place) {
+  try {
+    const existingPlaces = JSON.parse(await AsyncStorage.getItem(PLACES_KEY)) || [];
+    const newPlace = {
+      id: Date.now(), // Generate a unique ID
+      type: place.type,
+      title: place.title,
+      imageUri: place.imageUri,
+      address: place.address,
+      location: {
+        lat: place.location.lat,
+        lng: place.location.lng,
+      },
+      note: place.note,
+    };
+    existingPlaces.push(newPlace);
+    await AsyncStorage.setItem(PLACES_KEY, JSON.stringify(existingPlaces));
+    return Promise.resolve(newPlace);
+  } catch (error) {
+    return Promise.reject(error);
   }
-  
-  export function fetchPlaces() {
-    const promise = new Promise((resolve, reject) => {
-      database.transaction((tx) => {
-        tx.executeSql(
-          'SELECT * FROM places',
-          [],
-          (_, result) => {
-            const places = [];
-  
-            for (const dp of result.rows._array) {
-              places.push(
-                new Place(
-                  dp.title,
-                  dp.imageUri,
-                  {
-                    address: dp.address,
-                    lat: dp.lat,
-                    lng: dp.lng,
-                  },
-                  dp.id
-                )
-              );
-            }
-            resolve(places);
-          },
-          (_, error) => {
-            reject(error);
-          }
-        );
-      });
-    });
-  
-    return promise;
+}
+
+// Delete a place by ID
+export async function deletePlace(id) {
+  try {
+    const existingPlaces = JSON.parse(await AsyncStorage.getItem(PLACES_KEY)) || [];
+    const updatedPlaces = existingPlaces.filter((place) => place.id !== id);
+    await AsyncStorage.setItem(PLACES_KEY, JSON.stringify(updatedPlaces));
+    return Promise.resolve();
+  } catch (error) {
+    return Promise.reject(error);
   }
-  
-  export function fetchPlaceDetails(id) {
-    const promise = new Promise((resolve, reject) => {
-      database.transaction((tx) => {
-        tx.executeSql(
-          'SELECT * FROM places WHERE id = ?',
-          [id],
-          (_, result) => {
-            const dbPlace = result.rows._array[0];
-            const place = new Place(
-              dbPlace.title,
-              dbPlace.imageUri,
-              { lat: dbPlace.lat, lng: dbPlace.lng, address: dbPlace.address },
-              dbPlace.id
-            );
-            resolve(place);
-          },
-          (_, error) => {
-            reject(error);
-          }
-        );
-      });
-    });
-  
-    return promise;
+}
+
+// Fetch all places
+export async function fetchPlaces() {
+  try {
+    const existingPlaces = JSON.parse(await AsyncStorage.getItem(PLACES_KEY)) || [];
+    const places = existingPlaces.map((dp) => new Place(
+      dp.type,
+      dp.title,
+      dp.imageUri,
+      {
+        address: dp.address,
+        lat: dp.location.lat,
+        lng: dp.location.lng,
+      },
+      dp.id,
+      dp.note || '',
+    ));
+    return Promise.resolve(places);
+  } catch (error) {
+    return Promise.reject(error);
   }
+}
+
+// Fetch place details by ID
+export async function fetchPlaceDetails(id) {
+  try {
+    const existingPlaces = JSON.parse(await AsyncStorage.getItem(PLACES_KEY)) || [];
+    const dbPlace = existingPlaces.find((place) => place.id === id);
+    if (!dbPlace) {
+      return Promise.reject('Place not found');
+    }
+    const place = new Place(
+      dbPlace.type,
+      dbPlace.title,
+      dbPlace.imageUri,
+      {
+        lat: dbPlace.location.lat,
+        lng: dbPlace.location.lng,
+        address: dbPlace.address,
+      },
+      dbPlace.id,
+      dbPlace.note || '',
+    );
+    return Promise.resolve(place);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export async function updatePlace(updatedPlace) {
+  try {
+    const existingPlaces = JSON.parse(await AsyncStorage.getItem(PLACES_KEY)) || [];
+
+    // Find the index of the place to update
+    const placeIndex = existingPlaces.findIndex((place) => place.id === updatedPlace.id);
+
+    if (placeIndex === -1) {
+      return Promise.reject('Place not found');
+    }
+
+    // Update the place at the found index
+    existingPlaces[placeIndex] = {
+      ...existingPlaces[placeIndex],
+      ...updatedPlace,  // Use the properties from updatedPlace
+    };
+
+    // Save the updated places array back to AsyncStorage
+    await AsyncStorage.setItem(PLACES_KEY, JSON.stringify(existingPlaces));
+    return Promise.resolve(existingPlaces[placeIndex]);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}

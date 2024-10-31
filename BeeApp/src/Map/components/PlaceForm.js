@@ -1,5 +1,7 @@
-import React, { useCallback, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useCallback, useState, useEffect } from 'react';
+import { useRoute } from "@react-navigation/native";
+
+import { ScrollView, StyleSheet, Text, TextInput, View, Alert } from 'react-native';
 import OutlinedButton from "./OutlinedButton";
 import Button from './Button';
 import ImagePicker from './ImagePicker';
@@ -12,9 +14,21 @@ import FlowerImage from '../../../assets/favicon.png';
 
 function PlaceForm({ onCreatePlace }) 
 {
+    const route = useRoute();
     const [enteredTitle, setEnteredTitle] = useState('');
     const [selectedImage, setSelectedImage] = useState();
     const [pickedLocation, setPickedLocation] = useState();
+
+
+    useEffect(() => {
+        if (route.params?.pickedLat && route.params?.pickedLng) {
+            setPickedLocation({
+                lat: route.params.pickedLat,
+                lng: route.params.pickedLng,
+            });
+        }
+    }, [route.params]);
+
 
     const changeTitleHandler = (enteredText) => {
         setEnteredTitle(enteredText);
@@ -28,24 +42,51 @@ function PlaceForm({ onCreatePlace })
         setPickedLocation(location);
     }, []);
 
-    const savePlaceHandler = () => {
-        console.log(pickedLocation);
-        const placeData = new Place(enteredTitle, selectedImage, pickedLocation);
-        console.log(placeData);
+    const savePlaceHandler = (type) => {
+        // Validation check for required fields
+        if (!enteredTitle) {
+            Alert.alert(
+                "Title Missing",
+                "Please enter a title for the place.",
+                [{ text: "OK" }]
+            );
+            return;
+        }
+        if (!selectedImage) {
+            Alert.alert(
+                "Image Missing",
+                "Please select an image for the place.",
+                [{ text: "OK" }]
+            );
+            return;
+        }
+        if (!pickedLocation) {
+            Alert.alert(
+                "Location Missing",
+                "Please select an location for the place.",
+                [{ text: "OK" }]
+            );
+            return;
+        }
+
+        const placeData = new Place(type, enteredTitle, selectedImage, pickedLocation);
         onCreatePlace(placeData);
     };
 
     // Placeholder functions for button actions
     const onAddHiveopolis = () => {
         console.log('Adding HIVEOPOLIS');
+        savePlaceHandler("hiveopolis");
     };
 
     const onAddBeehive = () => {
         console.log('Adding Beehive');
+        savePlaceHandler("hive");
     };
 
     const onAddFlower = () => {
         console.log('Adding Flower');
+        savePlaceHandler("flower");
     };
 
     return (
@@ -64,10 +105,8 @@ function PlaceForm({ onCreatePlace })
             <OutlinedButton onPress={onAddHiveopolis} image={HiveopolisImage}>Add Hiveopolis</OutlinedButton>
             <OutlinedButton onPress={onAddBeehive} image={BeehiveImage}>Add Beehive</OutlinedButton>
             <OutlinedButton onPress={onAddFlower} image={FlowerImage}>Add Flower</OutlinedButton>
-            
-            <Button onPress={savePlaceHandler}>Add Place</Button>
-            
-            <View style={{ width: 50, height: 40}} />
+
+            <View style={{ width: 50, height: 40 }} />
         </ScrollView>
     );
 }

@@ -12,7 +12,8 @@ import JournalScreen from '../screens/JournalScreen'
 import Autentication from '../src/UserAuthentication';
 import { useEffect, useState } from 'react';
 
-function WeatherScreen({route, navigation}) {
+function WeatherScreen({route, navigation}) 
+{
     const catId = route.params.categoryId;
     
 
@@ -22,6 +23,7 @@ function WeatherScreen({route, navigation}) {
             title: categoryTitle,
         });
     }, [catId, navigation]);
+
 
     if (catId == 'c1' ) {
         return (
@@ -63,10 +65,6 @@ function WeatherScreen({route, navigation}) {
           <JournalScreen />
         </View>
       )
-      /*useEffect(() => {
-          navigation.navigate('Journal');
-      }, []);*/
-      
   } else {
       return (
       <View style={styles.container}>

@@ -23,6 +23,7 @@ function PlaceItem({ place, onSelect }) {
       alignItems: 'flex-start',
       borderRadius: 6,
       marginVertical: 12,
+      marginHorizontal: 2,
       backgroundColor: '#ECDBBA',
       elevation: 2,
       shadowColor: 'black',

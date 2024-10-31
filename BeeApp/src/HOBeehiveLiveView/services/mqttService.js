@@ -10,11 +10,11 @@ const url = 'wss://science.itf.llu.lv:443/mqtt';
 //ho_app03:XKLgO8NJbBd/NWJ4
 const options = {
       //keepalive: 60,
-      clientId: 'ho_app02:rB7zbiu52k0gMzWz',
+      clientId: 'ho_app02:cFkmGmD2ktdk3Np0',
       username: 'ho_app02',
       password: 'cFkmGmD2ktdk3Np0',
       clean: true,
-      reconnectPeriod: 1000,
+      reconnectPeriod: 10000,
       connectTimeout: 4000,
       keepalive: 60,
       clean: true,

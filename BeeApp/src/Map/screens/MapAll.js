@@ -15,11 +15,8 @@ function PlaceMarker({ place, onPress })
     return (<></>);
   } 
   
-  console.log("id: " + place.id);
-  
   return (
     <Marker
-      key = {"marker-" + place.id}
       identifier={"marker-" + place.id}
       title={"Name: " + place.title}
       description={place.address}
@@ -174,7 +171,7 @@ function MapAll({ route })
       >
       {
         loadedPlaces.map( item => {
-          return (<PlaceMarker place={item} onPress={selectLocationHandler}/>)
+          return (<PlaceMarker key={item.id} place={item} onPress={selectLocationHandler}/>)
         })
       }
       </MapView>

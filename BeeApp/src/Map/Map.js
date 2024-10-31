@@ -5,6 +5,7 @@ import AllPlaces from './screens/AllPlaces';
 import AddPlace from './screens/AddPlace';
 import IconButton from './components/IconButton';
 import Map from './screens/Map';
+import MapPlacePick from './screens/MapPlacePick';
 import PlaceDetails from './screens/PlaceDetails';
 
 const Stack = createNativeStackNavigator();
@@ -32,7 +33,6 @@ export default function MapAndPlaces()
               size={30} 
               color={tintColor} 
               onPress={() => navigation.navigate('AddPlace')}
-
             />
             ),
           })}
@@ -42,6 +42,8 @@ export default function MapAndPlaces()
           }}
         />
         <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="MapPlacePick" component={MapPlacePick}
+        />
         <Stack.Screen
           name="PlaceDetails"
           component={PlaceDetails}

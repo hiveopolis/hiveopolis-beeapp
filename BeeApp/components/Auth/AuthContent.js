@@ -14,7 +14,11 @@ function AuthContent({ isLogin, onAuthenticate }) {
   });
 
   function switchAuthModeHandler() {
-
+    Alert.alert(
+        "Feature not Avaliable",
+        "At the moment it is not possible to create new accounts.",
+        [{ text: "OK" }]
+    );
   }
 
   function submitHandler(credentials) {

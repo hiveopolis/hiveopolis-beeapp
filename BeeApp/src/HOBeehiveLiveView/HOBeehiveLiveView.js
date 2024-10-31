@@ -19,6 +19,8 @@ import { LineChart } from 'react-native-chart-kit';
 import { requestHiveData } from './services/mqttService';
 import { requestFromHive } from './services/mqttService';
 
+import { Colors } from '../Map/constants/colors';
+
 var global_id = 0;
 function getGlobalId() {
   global_id += 1;
@@ -187,51 +189,8 @@ function BoxGrid({value}) {
 }
 
 
-const HOBeehiveLiveView = () => 
-{
-  const [hive_state_map, setBeeData] = useState(null);
-  //const [mqttClient, setMqttClient] = useState(null);
-
-  useEffect(() => {
-    const mqttClient = requestHiveData(["hiveB", "hiveA", "ho_star01", "ho_star02"], setBeeData);
-    //console.log("useEffect");
-    return () => {
-      mqttClient.end();
-    }
-  });
-  
-
-  // TODO:
-  // this has to be done only once! 
-  // for this we need to create a dedicated HiveopolisClient object to make the connection persistent
-  /*
-  useEffect(() => {
-    requestHiveData("hiveA", setBeeData);
-  }, []);
-  */
-  
-
-  // manual update
-  /*
-  function updateOnClick() {
-    // experimental / random data
-    //requestHiveData("hiveA", setBeeData);
-    
-    //requestHiveData("hiveB", setBeeData);
-    
-    // demo hive in field (with bees)
-    //requestHiveData("ho_star01", setBeeData);
-    
-    // demo hive in lab (without bees) 
-    //requestHiveData("ho_star02", setBeeData);
-    
-    requestFromHive(mqttClient, "ho_star01");
-  }*/
-
-  
-  /*
-  // Mocup data: comment out above lines to use
-  const beeData = {
+// Mocup data: comment out above lines to use
+const testBeeData = {
   "header": {
     "module": "query-engine",
     "instance": "cloud",
@@ -275,7 +234,60 @@ const HOBeehiveLiveView = () =>
     ]
   }
 };
-*/
+
+
+const HOBeehiveLiveView = () => 
+{
+  const [hive_state_map, setBeeData] = useState(null);
+  //const [mqttClient, setMqttClient] = useState(null);
+
+  useEffect(() => {
+    addElementToHiveStateMap();
+  }, []);
+
+  useEffect(() => {
+    const mqttClient = requestHiveData(["hiveB", "hiveA", "ho_star01", "ho_star02"], setBeeData);
+    //console.log("useEffect");
+    return () => {
+      mqttClient.end();
+    }
+  });
+  
+  function addElementToHiveStateMap() {
+    setBeeData(prevState => ({
+      ...prevState,
+      "Test Beehive": testBeeData
+    }));
+  };
+
+  // TODO:
+  // this has to be done only once! 
+  // for this we need to create a dedicated HiveopolisClient object to make the connection persistent
+  /*
+  useEffect(() => {
+    requestHiveData("hiveA", setBeeData);
+  }, []);
+  */
+  
+
+  // manual update
+  /*
+  function updateOnClick() {
+    // experimental / random data
+    //requestHiveData("hiveA", setBeeData);
+    
+    //requestHiveData("hiveB", setBeeData);
+    
+    // demo hive in field (with bees)
+    //requestHiveData("ho_star01", setBeeData);
+    
+    // demo hive in lab (without bees) 
+    //requestHiveData("ho_star02", setBeeData);
+    
+    requestFromHive(mqttClient, "ho_star01");
+  }*/
+
+
   
   /*
   // test stuff
@@ -304,6 +316,7 @@ const HOBeehiveLiveView = () =>
               <HOTrafficView traffic = {beeData.latestHiveParameters.traffic } />
               <HOHarvesterView harvester = {beeData.latestHiveParameters.harvester } />
               <HOBroodnestView broodnest = {beeData.latestHiveParameters.broodnest } />
+              
             </View>);
         })
       
@@ -342,24 +355,37 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '95%',
     marginBottom: 20,
-    backgroundColor: '#CCCCFF',
     alignItems: 'center',
     paddingVertical: 12,
-    borderRadius: 4,
+    borderRadius: 6,
+    marginVertical: 12,
+    marginHorizontal: 2,
+    backgroundColor: '#ECDBBA',
+    elevation: 2,
+    shadowColor: 'black',
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 1, height: 1 },
+    shadowRadius: 2,
   },
   viewbox: {
     paddingHorizontal: 8,
     paddingVertical: 6,
-    borderRadius: 4,
-    backgroundColor: '#34a2d9',
-    marginHorizontal: '1%',
     marginBottom: 6,
     width: '90%',
     textAlign: 'center',
     alignItems: 'center',
+    borderRadius: 6,
+    marginVertical: 12,
+    marginHorizontal: 2,
+    backgroundColor: '#ECDBBA',
+    elevation: 2,
+    shadowColor: 'black',
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 1, height: 1 },
+    shadowRadius: 2,
   },
   title: {
-    backgroundColor: '#137aad',
+    backgroundColor: '#EBBC4E',
     color: '#EEEEEE',
     fontSize: 20,
     fontWeight: 'bold',
@@ -369,7 +395,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 4,
     width: '100%',
-    backgroundColor: '#137aad',
+    backgroundColor: '#EBBC4E',
     color: '#EEEEEE',
     fontWeight: 'bold',
     textAlign: 'center',

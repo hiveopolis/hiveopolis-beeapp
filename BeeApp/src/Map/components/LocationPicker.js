@@ -30,6 +30,7 @@ function LocationPicker({ onPickLocation })
         }
     }, [route, isFocused]);
 
+
     useEffect(() => {
         async function handleLocation() {
             if (pickedLocation) {
@@ -80,7 +81,7 @@ function LocationPicker({ onPickLocation })
     }
 
     function pickOnMapHandler() {
-        navigation.navigate('Map');
+        navigation.navigate('MapPlacePick');
     }
 
     let locationPreview = <Text>No location picked yet.</Text>
